@@ -1,33 +1,88 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
+
     <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,500;1,200&family=Roboto:wght@100&family=Work+Sans:wght@100&display=swap" rel="stylesheet">
+    <style>
+
+        #nav{
+            width: 100%;
+            text-align: center;
+            margin:auto;
+            height: 50px;
+            float: right;
+        }
+        h3{
+            float: left;
+            padding-right: 20px;
+        }
+
+        body{
+            background-color: #18185c;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            text-align: center;
+        }
+        #main{
+            width: 100%;
+            margin: auto;
+        }
+        #panel{
+            margin-top: 50px;
+            margin-left: 120px;
+            float: left;
+            text-align: center;
+        }
+        #movieName{
+        }
+        #moviePoster{
+        }
+        img{
+            transition: transform .2s;
+            padding: 5px;
+        }
+        img:hover{
+            transform: scale(1.1);
+        }
+
+    </style>
 </head>
 <body>
 
+<div id="nav">
 
-<table>
-
-    <tr>
-        <th>Id</th>
-        <th>Imie</th>
-        <th>Nazwsiko</th>
-        <th>Adres</th>
-        <th>Mieszkanie</th>
-        <th>Numer telefonu</th>
-        <th>Cena</th>
-        <th>Miasto</th>
-        <th>Delivered</th>
-        <th>Finish</th>
-
-    </tr>
+    <h3>Most Popular</h3>
+    <h3>Search</h3>
+    <h3>Profile</h3>
 
 
+</div>
+
+<div id="main">
 
 
-</table>
+    <div th:each="p : ${movies}" id="panel">
 
+
+        <div id="moviePoster">
+            <img height="350px" width="300px" th:alt="${p.getMovieName()}" th:src="${p.getMoviePoster()} ">
+
+        </div>
+
+        <div id="movieName">
+            <p th:text="${p.getMoviePosition()} + ${p.getMovieName()}">  </p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
 
 </body>
 </html>

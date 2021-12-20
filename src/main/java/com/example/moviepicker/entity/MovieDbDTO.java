@@ -19,8 +19,10 @@ public class MovieDbDTO {
             strategy = GenerationType.AUTO
     )
     private Long movieId;
+    private String moviePosition;
     private String movieName;
     private String movieRate;
     private String language;
+    private String moviePoster;
 
 }

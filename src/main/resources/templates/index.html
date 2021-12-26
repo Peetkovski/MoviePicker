@@ -42,6 +42,7 @@
         #moviePoster{
         }
         img{
+            border-radius: 30px;
             transition: transform .2s;
             padding: 5px;
         }
@@ -69,12 +70,13 @@
 
 
         <div id="moviePoster">
-            <img height="350px" width="300px" th:alt="${p.getMovieName()}" th:src="${p.getMoviePoster()} ">
-
+            <a th:href="@{/movie/{movieName}(movieName=${p.getMovieId()})}">
+            <img height="350px"  width="300px" th:alt="${p.getMovieId()}" th:src="${p.getMoviePoster()}  ">
+</a>
         </div>
 
         <div id="movieName">
-            <p th:text="${p.getMoviePosition()} + ${p.getMovieName()}">  </p>
+            <p th:text="${p.getMoviePosition()} + ${p.getMovieName()} + ${p.getMovieRate()}">  </p>
 
         </div>
 

@@ -11,6 +11,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -18,8 +20,6 @@ public class SearchedMovies {
 
 
     private List<MovieDbDTO> allFilms = new ArrayList<MovieDbDTO>();
-
-
 
 
     public List<MovieDbDTO> getAllFilms(){
@@ -30,6 +30,7 @@ public class SearchedMovies {
 
     public void getMovieByName(String movieName) throws IOException, InterruptedException {
         String mostPopularMoviesJson = "https://api.themoviedb.org/3/search/movie?api_key=17a7e43adb001580f381019e4a272790&query="+movieName;
+        String movieDetails = "https://api.themoviedb.org/3/movie/31?api_key=17a7e43adb001580f381019e4a272790";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
@@ -65,8 +66,12 @@ public class SearchedMovies {
 
                 records.add(movieDbDTO);
         }
+
+
+
         }
         this.allFilms = records;
+
 
 
     }

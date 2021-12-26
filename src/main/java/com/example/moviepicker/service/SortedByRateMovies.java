@@ -1,11 +1,10 @@
 package com.example.moviepicker.service;
 
+
 import com.example.moviepicker.entity.MovieDbDTO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,23 +12,35 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
-public class PopularMovies {
-    private List<MovieDbDTO> allPopularFilms = new ArrayList<MovieDbDTO>();
-    Logger logger = Logger.getLogger("com.service.PopularMovies");
+public class SortedByRateMovies {
 
-    public List<MovieDbDTO>getAllPopularFilms(){
 
-        logger.info("Returning popular Movies");
-        return allPopularFilms;
+    private List<MovieDbDTO> allFilms = new ArrayList<MovieDbDTO>();
+
+
+
+    public List<MovieDbDTO> sortFilmsByRate(){
+        List<Double> list = new ArrayList<>();
+        System.out.println("Posortowane" +allFilms);
+
+
+        for (int i=0;i<allFilms.size();i++) {
+
+
+        }
+        return allFilms;
     }
 
-    @PostConstruct
-    public void getMostPopularMovies() throws IOException, InterruptedException {
-        String mostPopularMoviesJson = "https://api.themoviedb.org/3/movie/popular?api_key=17a7e43adb001580f381019e4a272790";
+    public List<MovieDbDTO> getAllFilms(){
 
+        return allFilms;
+    }
+
+
+    public void getMovieByName(String movieName) throws IOException, InterruptedException {
+        String mostPopularMoviesJson = "https://api.themoviedb.org/3/search/movie?api_key=17a7e43adb001580f381019e4a272790&query="+movieName;
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
@@ -45,25 +56,34 @@ public class PopularMovies {
 
         JSONObject jsonObject = new JSONObject(response.body());
         JSONArray jsonArray = jsonObject.getJSONArray("results");
-        for(int i = 0;i <jsonArray.length();i++){
+        for(int i = 0;i <jsonArray.length();i++) {
             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
             MovieDbDTO movieDbDTO = new MovieDbDTO();
             movieDbDTO.setMovieId(jsonObject1.getLong("id"));
             movieDbDTO.setMovieName(jsonObject1.getString("title"));
-            movieDbDTO.setMovieRate(String.valueOf(" ("+jsonObject1.getDouble("vote_average")+ ") "));
+            movieDbDTO.setMovieRate(String.valueOf(jsonObject1.getDouble("vote_average")));
             String afterPath = String.valueOf(jsonObject1.get("poster_path"));
-            movieDbDTO.setMoviePoster(beforePath+afterPath);
-            movieDbDTO.setMoviePosition(String.valueOf(i+1)+") ");
+            movieDbDTO.setMoviePoster(beforePath + afterPath);
+            movieDbDTO.setMoviePosition(String.valueOf(i + 1) + ") ");
+
+            if (afterPath.equals("null")) {
+
+                movieDbDTO.setMoviePoster("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png");
+                records.add(movieDbDTO);
+
+            } else{
 
 
+                records.add(movieDbDTO);
+            }
 
-            records.add(movieDbDTO);
+
 
         }
-        logger.info("Getting popular movies");
-        this.allPopularFilms = records;
+        this.allFilms = records;
+
 
 
     }
-
 }
+

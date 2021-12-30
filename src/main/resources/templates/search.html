@@ -39,12 +39,16 @@
         }
         #movieName{
         }
+       nav > img{
+            border-radius:50%;
+            float: right;
+        }
         #moviePoster{
         }
         img{
-            border-radius: 30px;
             transition: transform .2s;
             padding: 5px;
+            border-radius: 30px;
         }
         img:hover{
             transform: scale(1.1);
@@ -54,13 +58,16 @@
 </head>
 <body>
 
-<div id="nav">
+<div  id="nav">
 
     <h3>Most Popular</h3>
     <h3>Search</h3>
     <h3>Profile</h3>
+    <form th:action="@{/mycontroller/{movieId}/} ">
+    <h3>         <input name="movieName" type="text"</h3>
+    </form>
 
-
+  <img src="https://www.w3schools.com/howto/img_avatar.png" height="40" width="40">
 </div>
 
 <div id="main">
@@ -71,8 +78,8 @@
 
         <div id="moviePoster">
             <a th:href="@{/movie/{movieName}(movieName=${p.getMovieId()})}">
-            <img height="350px"  width="300px" th:alt="${p.getMovieId()}" th:src="${p.getMoviePoster()}  ">
-</a>
+            <img height="350px" width="300px" th:alt="${p.getMovieId()}" th:src="${p.getMoviePoster()} ">
+            </a>
         </div>
 
         <div id="movieName">

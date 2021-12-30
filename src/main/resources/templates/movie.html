@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html  lang="pl" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,500;1,200&family=Roboto:wght@100&family=Work+Sans:wght@100&display=swap" rel="stylesheet">
+    <style>
+        #nav{
+            width: 40%;
+            margin-left: 30px;
+            height: 30px;
+        }
+        #rate{
+            float: none;
+            text-align: center;
+        }
+        #nav > h3{
+            float: left;
+            padding-left: 10px;
+        }
+        body{
+            background-color: #18185c;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+        }
+        #moviePoster > img{
+            border-radius: 20px;
+            border-style: solid;
+            float: left;
+        }
+        #panel{
+            width: 100%;
+
+        }
+        #moviePoster{
+            text-align: center                      ;
+            margin-top: 100px;
+            margin-left: 150px;
+            width: 300px;
+        }
+        #description{
+            margin-left: 50px;
+            width: 50%;
+            float: left;
+        }
+        #title{
+            float: left;
+            width: 30%;
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div th:each="p : ${movies}" id="panel">
+
+    <div id="nav">
+
+        <h3 th:action="@{/popular}"> BACK </h3>
+        <h3>Most Popular</h3>
+        <h3>Search</h3>
+        <h3>Profile</h3>
+
+
+    </div>
+
+
+
+
+    <div id="moviePoster">
+
+        <img height="450px" width="400px" th:alt="${p.getMovieName()}" th:src="${p.getMoviePoster()} ">
+
+    </div>
+
+
+
+<div id="description">
+    <h1 th:text="${p.getMovieName() } + ${  p.getMovieReleaseDate()}"> </h1>
+
+    <h3 th:text="${p.getMovieDescription()}"> </h3>
+
+    <div id="rate">
+
+        RATE
+        <h3 style="color: green" th:if="${p.getMovieRate() >'8.0'}" th:text="${p.getMovieRate()}">RATE: </h3>
+
+        <h3 style="color: yellow" th:if="${p.getMovieRate() <='7.99'} and ${p.getMovieRate() >'5.01'}" th:text="${p.getMovieRate()}">RATE: </h3>
+
+        <h3 style="color: red" th:if="${p.getMovieRate() <='5'}" th:text="${p.getMovieRate()}">RATE: </h3>
+
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+</body>
+</html>
